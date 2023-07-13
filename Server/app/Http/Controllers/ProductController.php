@@ -6,35 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Requests\ProductStoreRequest;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage; //php artisan storage:link = php artisan storage:link = http://127.0.0.1:8000/storage/1.jpg
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //all product
-        $products = Product::all();
+       // All Product
+       $products = Product::all();
 
-        // Return Json Response
-        return response()->json([
-           'products' => $products
-        ],200);
+       // Return Json Response
+       return response()->json([
+          'products' => $products
+       ],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ProductStoreRequest $request)
     {
         try {
@@ -43,7 +29,7 @@ class ProductController extends Controller
             // Create Product
             Product::create([
                 'image' => $imageName,
-                'title' => $request->name,
+                'title' => $request->title,
                 'description' => $request->description,
                 'location' => $request->location,
             ]);
@@ -63,9 +49,6 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
        // Product Detail
@@ -82,17 +65,6 @@ class ProductController extends Controller
        ],200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ProductStoreRequest $request, $id)
     {
         try {
@@ -105,7 +77,7 @@ class ProductController extends Controller
             }
 
             //echo "request : $request->image";
-            $product->titel = $request->title;
+            $product->title = $request->title;
             $product->description = $request->description;
             $product->location = $request->location;
 
@@ -141,9 +113,6 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         // Detail
